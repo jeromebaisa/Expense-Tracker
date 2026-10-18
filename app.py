@@ -1,2 +1,4 @@
-print("Welcome to the Personal Expense Tracker!")
-print("Project setup is working.")
+import streamlit as st
+
+st.title("Persnal Expense Tracker")
+st.write("Project setup is working.")
