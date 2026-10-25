@@ -7,7 +7,7 @@ def add_expense(expenses, description, amount, category, spending_type):
         "spending_type": spending_type
 
     }
-    expense.append(expense)
+    expenses.append(expense)
     return expenses
 
 def calculate_total(expenses):
