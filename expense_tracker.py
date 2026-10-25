@@ -24,3 +24,18 @@ def summarize_by_category(expenses):
 
     return totals
 
+def summarize_by_spending_type(expenses):
+    """Calculate total spending for Needs, Wants, and Impulse purchases."""
+
+    totals = {
+        "Need": 0,
+        "Want": 0,
+        "Impulse": 0
+    }
+
+    for expense in expenses:
+        spending_type = expense["spending_type"]
+        totals[spending_type] += expense["amount"]
+
+    return totals
+
