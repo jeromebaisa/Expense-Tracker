@@ -1,5 +1,9 @@
 import streamlit as st
-from expense_tracker import add_expense, calculate_total
+from expense_tracker import (
+    add_expense,
+    calculate_total,
+    summarize_by_spending_type
+)
 
 st.title("Personal Expense Tracker")
 st.write("Track your spending and understand your purchasing habits.")
@@ -8,7 +12,7 @@ st.write("Track your spending and understand your purchasing habits.")
 if "expenses" not in st.session_state:
     st.session_state.expenses = []
 
-# expense entry form
+# Expense entry form
 st.subheader("Add an Expense")
 
 with st.form("expense_form"):
@@ -32,7 +36,7 @@ with st.form("expense_form"):
 
     submitted = st.form_submit_button("Add Expense")
 
-# process the expense when submitted
+# Process the expense when submitted
 if submitted:
     if description.strip():
         add_expense(
@@ -46,7 +50,7 @@ if submitted:
     else:
         st.warning("Please enter an expense name.")
 
-#display record expenses
+# Display record expenses
 st.subheader("Your Expenses")
 
 if st.session_state.expenses:
@@ -56,3 +60,15 @@ if st.session_state.expenses:
     st.metric("Total Spending", f"${total:.2f}")
 else:
     st.info("No expenses added yet.")
+
+# Display spending breakdown
+if st.session_state.expenses:
+    st.subheader("Spending Breakdown")
+
+    spending_totals = summarize_by_spending_type(
+        st.session_state.expenses
+    )
+
+    st.write("Needs: $", round(spending_totals["Need"], 2))
+    st.write("Wants: $", round(spending_totals["Want"], 2))
+    st.write("Impulse: $", round(spending_totals["Impulse"], 2))
