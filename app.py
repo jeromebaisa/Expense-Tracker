@@ -1,4 +1,7 @@
 import streamlit as st
+import csv
+from pathlib import Path
+
 from expense_tracker import (
     add_expense,
     calculate_total,
@@ -71,6 +74,43 @@ if submitted:
             spending_type
         )
         st.success("Expense added successfully!")
+
+
+# Load sample expenses from the CSV file
+if st.button("Load Sample Data"):
+
+    # Find the sample CSV file in the project folder
+    sample_file = Path(__file__).parent / "sample_expenses.csv"
+
+    try:
+        # Open the CSV file and read the expenses
+        with open(sample_file, "r", newline="") as file:
+            reader = csv.DictReader(file)
+
+            # Store the sample expenses in a temporary list
+            sample_expenses = []
+
+            for row in reader:
+                # Add each sample expense using the existing function
+                add_expense(
+                    sample_expenses,
+                    row["description"],
+                    float(row["amount"]),
+                    row["category"],
+                    row["spending_type"]
+                )
+
+        # Replace the current expenses with the sample data
+        st.session_state.expenses = sample_expenses
+
+        st.success("Sample expenses loaded successfully!")
+
+    except FileNotFoundError:
+        st.error("The sample_expenses.csv file was not found.")
+
+    except (ValueError, KeyError, TypeError):
+        st.error("The sample data contains invalid information.")
+
 
 # Display the user's recorded expenses
 st.subheader("Your Expenses")
