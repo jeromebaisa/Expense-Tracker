@@ -5,7 +5,9 @@ from pathlib import Path
 from expense_tracker import (
     add_expense,
     calculate_total,
-    summarize_by_spending_type
+    summarize_by_spending_type,
+    save_expenses,
+    load_expenses
 )
 
 st.title("Personal Expense Tracker")
@@ -13,7 +15,7 @@ st.write("Track your spending and understand your purchasing habits.")
 
 # Store expenses while the app is running
 if "expenses" not in st.session_state:
-    st.session_state.expenses = []
+    st.session_state.expenses = load_expenses()
 
 # Expense entry form
 st.subheader("Add an Expense")
@@ -73,6 +75,7 @@ if submitted:
             category,
             spending_type
         )
+        save_expenses(st.session_state.expenses)
         st.success("Expense added successfully!")
 
 
@@ -102,6 +105,7 @@ if st.button("Load Sample Data"):
 
         # Replace the current expenses with the sample data
         st.session_state.expenses = sample_expenses
+        save_expenses(st.session_state.expenses)
 
         st.success("Sample expenses loaded successfully!")
 

@@ -1,3 +1,6 @@
+import csv
+from pathlib import Path
+
 def add_expense(expenses, description, amount, category, spending_type):
     """Add an expense to the expense records."""
     expense = {
@@ -39,3 +42,38 @@ def summarize_by_spending_type(expenses):
 
     return totals
 
+
+# Save expenses to a CSV file
+def save_expenses(expenses):
+    file_path = Path(__file__).parent / "expenses.csv"
+
+    with open(file_path, "w", newline="") as file:
+        fieldnames = ["description", "amount", "category", "spending_type"]
+
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(expenses)
+
+
+# Load saved expenses from a CSV file
+def load_expenses():
+    file_path = Path(__file__).parent / "expenses.csv"
+
+    expenses = []
+
+    try:
+        with open(file_path, "r", newline="") as file:
+            reader = csv.DictReader(file)
+
+            for row in reader:
+                expenses.append({
+                    "description": row["description"],
+                    "amount": float(row["amount"]),
+                    "category": row["category"],
+                    "spending_type": row["spending_type"]
+                })
+
+    except FileNotFoundError:
+        return []
+
+    return expenses
