@@ -23,11 +23,22 @@ with st.form("expense_form"):
         min_value=0.01,
         step=0.50
     )
-
+# Dropdown menu for expense category
     category = st.selectbox(
-        "Category",
-        ["Food", "Transportation", "Shopping", "Entertainment", "Other"]
-    )
+    "Expense Category",
+    [
+        "Groceries",
+        "Food & Drinks",
+        "Transportation",
+        "Shopping",
+        "Entertainment",
+        "Bills",
+        "Health",
+        "Other"
+    ],
+    index=None,
+    placeholder="Select a category"
+)
 
     spending_type = st.selectbox(
         "Type of Purchase",
@@ -38,7 +49,13 @@ with st.form("expense_form"):
 
 # Process the expense when submitted
 if submitted:
-    if description.strip():
+    if not description.strip():
+        st.warning("Please enter an expense name.")
+    elif category is None:
+        st.warning("Please select an expense category.")
+    elif spending_type is None:
+        st.warning("Please select a spending type.")
+    else:
         add_expense(
             st.session_state.expenses,
             description,
@@ -47,9 +64,7 @@ if submitted:
             spending_type
         )
         st.success("Expense added successfully!")
-    else:
-        st.warning("Please enter an expense name.")
-
+        
 # Display record expenses
 st.subheader("Your Expenses")
 
