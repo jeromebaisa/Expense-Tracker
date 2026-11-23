@@ -85,3 +85,31 @@ The basic expense-entry and spending-summary features are implemented.
 improvements include expense filtering, additional spending categories, improved currency formatting, input validation, sample data loading, and permanent local CSV storage.
 
 Expenses are now automatically saved to `expenses.csv` and loaded when the application starts a new session.
+
+### Architecture
+
+User
+  |
+  v
+app.py (Streamlit Interface)
+  |
+  v
+expense_tracker.py (Expense Calculations and CSV Functions)
+  |
+  v
+expenses.csv (Saved Expense Records)
+
+## Demo Screenshot
+![Personal Expense Tracker Demo](demo.png)
+
+## Quickstart
+Clone the repository, install the dependencies, and run the application.
+```bash
+git clone https://github.com/jeromebaisa/personal-expense-tracker.git
+cd personal-expense-tracker && python3 -m pip install -r requirements.txt
+python3 -m streamlit run app.py
+
+
+## Author
+Jerome Baisa
+GitHub: https://github.com/jeromebaisa
