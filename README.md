@@ -109,6 +109,10 @@ git clone https://github.com/jeromebaisa/Expense-Tracker.git
 cd Expense-Tracker && python3 -m pip install -r requirements.txt
 python3 -m streamlit run app.py
 
+## Live Demo
+Try the Personal Expense Tracker here:
+(https://expense-trackergit-knslkf8fhhjwtvlouvqn4v.streamlit.app/)
+
 ## Author
 Jerome Baisa
 GitHub: https://github.com/jeromebaisa
