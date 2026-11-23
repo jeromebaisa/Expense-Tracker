@@ -105,10 +105,9 @@ expenses.csv (Saved Expense Records)
 ## Quickstart
 Clone the repository, install the dependencies, and run the application.
 ```bash
-git clone https://github.com/jeromebaisa/personal-expense-tracker.git
-cd personal-expense-tracker && python3 -m pip install -r requirements.txt
+git clone https://github.com/jeromebaisa/Expense-Tracker.git
+cd Expense-Tracker && python3 -m pip install -r requirements.txt
 python3 -m streamlit run app.py
-
 
 ## Author
 Jerome Baisa
